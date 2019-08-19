@@ -3,7 +3,7 @@ import { createSelector, createFeatureSelector } from "@ngrx/store";
 import { DraggedItem, SortableAction, SortableEvents } from "@angular-skyhook/sortable";
 
 // our list operations
-import { KanbanList, KanbanBoard, initialBoard, insertList, removeList, insertCard, removeCard } from './lists';
+import { KanbanList, KanbanBoard, initialBoard, insertList, removeList, insertCard, removeCard, updateCard } from './lists';
 import { Card } from "./card";
 
 export enum ActionTypes {
@@ -11,6 +11,7 @@ export enum ActionTypes {
     SortCard   = "[Kanban] SortCard",
     AddCard    = "[Kanban] AddCard",
     RemoveCard = "[Kanban] RemoveCard",
+    UpdateCard = "[Kanban] UpdateCard",
     Spill      = "[Kanban] Spill",
 }
 
@@ -28,13 +29,17 @@ export class RemoveCard {
     readonly type = ActionTypes.RemoveCard;
     constructor(public item: DraggedItem<Card>) {}
 }
+export class UpdateCard {
+    readonly type = ActionTypes.UpdateCard;
+    constructor(public item: DraggedItem<Card>) { }
+}
 export class Spill {
     readonly type = ActionTypes.Spill;
     constructor(public item: DraggedItem<Card>) {}
 }
 
 // Include all the above actions
-type Actions = SortList | SortCard | AddCard | RemoveCard | Spill;
+type Actions = SortList | SortCard | AddCard | UpdateCard | RemoveCard | Spill;
 
 export interface BoardState {
     /** This is the clean state, a list of KanbanList objects. */
@@ -180,6 +185,19 @@ export function reducer(state: BoardState = initialState, action: Actions): Boar
                 board: insertCard(state.board, card, action.listId, index),
                 nextId: state.nextId + 1,
             };
+        }
+
+        case ActionTypes.UpdateCard: {
+          const { listId, index } = action.item;
+          const card: Card = {
+              id: action.item.data.id,
+              title: action.item.data.title + '_update',
+          };
+          console.log(action);
+          return {
+              ...resetDrag(state),
+              board: updateCard(state.board, card, listId, index),
+          };
         }
 
         case ActionTypes.RemoveCard: {

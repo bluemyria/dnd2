@@ -17,6 +17,7 @@ import { TrashCanComponent } from './trash-can.component';
 import { KanbanExternalComponent } from './external.component';
 import { reducer } from './store';
 import { SortableSpecService } from './specs';
+import { CalendarComponent } from './calendar.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { SortableSpecService } from './specs';
         AddCardComponent,
         TrashCanComponent,
         KanbanExternalComponent,
+        CalendarComponent
     ],
     imports: [
         CommonModule,
