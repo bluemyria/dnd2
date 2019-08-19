@@ -30,7 +30,7 @@ import { Card } from './card';
         border-radius: 4px;
         border: 1px dashed #333;
         text-align: center;
-        transform-origin: 100% 0%;
+        transform-origin: 100% 100%;
         transition: transform 50ms ease-out;
     }
     .space {
@@ -62,7 +62,7 @@ export class CalendarComponent {
     constructor(private dnd: SkyhookDndService) { }
     getStyle(isOver: boolean, item: DraggedItem<Card>) {
         if (!isOver || !item) { return {} }
-        //console.log(item.size.style());
+        // console.log(item.size.style());
         return {
             ...item.size.style(),
             transition: 'all 50ms ease-in'

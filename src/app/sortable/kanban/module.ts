@@ -18,6 +18,7 @@ import { KanbanExternalComponent } from './external.component';
 import { reducer } from './store';
 import { SortableSpecService } from './specs';
 import { CalendarComponent } from './calendar.component';
+import { DayComponent } from "./day.component";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { CalendarComponent } from './calendar.component';
         AddCardComponent,
         TrashCanComponent,
         KanbanExternalComponent,
-        CalendarComponent
+        CalendarComponent,
+        DayComponent
     ],
     imports: [
         CommonModule,
